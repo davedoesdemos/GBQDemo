@@ -20,14 +20,14 @@ Create a dataset with a suitable name, here we’ll use GBQDemo
 Next we’ll add tables and fill them with data. For this demo create two columns, one with a datetime stamp and the other a string. This allows us to query based on date for the tumbling window in Azure Data Factory.
 ![2.3addtable](2.3addtable.png)
 Alternatively use the following query from the query editor:
-'''SQL
+```SQL
 CREATE TABLE gbqdemo.testtable (
    name STRING,
    date DATETIME
 )
-'''
+```
 To create some data, I used the following query:
-'''SQL
+```SQL
 INSERT gbqdemo.testtable (date, name)
 VALUES (datetime(2019, 01, 13, 07, 22, 00), "January 13th 2019"),
 (datetime(2018, 12, 21, 05, 45, 00), "December 21st 2018"),
@@ -36,10 +36,10 @@ VALUES (datetime(2019, 01, 13, 07, 22, 00), "January 13th 2019"),
 (datetime(2018, 12, 18, 02, 32, 00), "December 18th 2018"),
 (datetime(2018, 11, 05, 05, 37, 00), "November 5th 2018"),
 (datetime(2018, 11, 01, 06, 34, 00), "November 1st 2018")
-'''
+```
 ## Create a Query
 Use the query editor in BigQuery to create a query for later and test that it returned suitable rows. For this use the following query:
-'''SQL
+```SQL
 SELECT * FROM gbqdemo.testtable WHERE date >= DATETIME "2017-12-01 00:00:00" AND date <= DATETIME "2019-01-01 00:00:00"
-'''
+```
 While not complex, this gives enough information to demo with and will select rows with a timestamp between two values.
