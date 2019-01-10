@@ -5,4 +5,4 @@ In this demo we’ll configure a Google BigQuery instance, add some data, and th
 # Configure Google
 ## Project Setup
 Log into Google Cloud at [https://console.cloud.google.com](https://console.cloud.google.com) and create a new project by clicking the project name on the menu and selecting “new project”.
-! [1.1 select project dialog.png](images/1.1 select project dialog.png)
+![1.1 select project dialog.png](/images/1.1 select project dialog.png)
