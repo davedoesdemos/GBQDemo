@@ -1,4 +1,4 @@
-#Google BigQuery Demo
+# Google BigQuery Demo
 Produced by Dave Lusty
 #Introduction
 In this demo we’ll configure a Google BigQuery instance, add some data, and then query that data from Azure Data Factory using a copy job. The copy job will use a schedule and only copy data matching certain parameters.
