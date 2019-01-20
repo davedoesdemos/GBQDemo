@@ -124,9 +124,11 @@ Click the copy task to configure it.
 Give it a useful name.
 ![5.2newcopyjob3](images/5.2newcopyjob3.png)
 Under “Source” select the Google BigQuery dataset we created previously. Add dynamic content for the query since we don’t want the whole table. Use the following query. This will use the parameters we configured in the pipeline as the dates in the query we send to BigQuery. This will return only rows with a date between our start and end times.
+
 ```SQL
-SELECT * FROM gbqdemo.testtable WHERE date <= DATETIME "@{pipeline().parameters.runstartdate}" AND date <= DATETIME "@{pipeline().parameters.runenddate}"
+SELECT * FROM gbqdemo.testtable WHERE date >= DATETIME "@{pipeline().parameters.runstartdate}" AND date <= DATETIME "@{pipeline().parameters.runenddate}"
 ```
+
 ![5.2newcopyjob4.png](images/5.2newcopyjob4.png)
 Under sink, select the Blob dataset we created earlier. Because that dataset is expecting a parameter to use for file naming, we pass it in here. Use the following or select it in the dynamic content pane.
 ```@pipeline().parameters.runstartdate```
@@ -141,9 +143,13 @@ Create a new trigger here.
 Select a start date for the trigger. This can be in the past. The trigger will create one job per “window” so you can start and end at any time and more jobs will be created. Beware that each job will submit one BigQuery request so small windows may add to costs. Each run will also have a cost under Azure.
 I selected midnight to midnight with a 24 hour recurrence for simplicity. 
 Click Next and you get a parameter screen. Here we use some of the trigger variables to get the start and end datetime for the job and format them for our use. For jobstartdate use:
+
 ```@formatDateTime(trigger().outputs.windowStartTime, 'yyyy-MM-dd HH:mm:ss')```
+
 And for jobenddate use:
+
 ```@formatDateTime(trigger().outputs.windowEndTime, 'yyyy-MM-dd HH:mm:ss')```
+
 Click finish.
 ## Publish and run
 Click validate all to find any errors you may have made. Once everything is OK click Publish all to submit and save everything. This will save all of the assets you created as well as submit the trigger for evaluation and job creation. If you change anything, you’ll need a new trigger since these are associated with assets behind the scenes so don’t work as a simple scheduler might.
